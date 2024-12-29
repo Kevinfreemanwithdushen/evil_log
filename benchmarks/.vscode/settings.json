@@ -1,0 +1,11 @@
+{
+    "clangd.arguments": [
+        "--log=verbose",
+        "--header-insertion=never",
+        "--pch-storage=memory",
+        "--function-arg-placeholders=false",
+        "--clang-tidy","-j=12",
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+    ]
+}

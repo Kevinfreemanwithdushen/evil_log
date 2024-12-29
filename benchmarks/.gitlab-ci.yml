@@ -1,0 +1,41 @@
+
+stages:
+  - build
+  - cleanup
+  - deploy
+
+variables:
+  dependence: ""
+  REPO_NAME: xtp-generic-dev
+  PRODUCT_NAME: risk  
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: '$CI_COMMIT_REF_NAME =~ /^r/ && $CI_COMMIT_REF_PROTECTED == "true"'
+      variables:
+        REPO_NAME: xtp-generic-prd
+    - when: always
+
+linux-debug:
+  stage: build
+  script: 
+    - prepareProjects
+    - xtpmake -DCMAKE_BUILD_TYPE=debug
+    - pushd ../${CI_JOB_ID} && mkdir bin && mkdir lib && cp ./3rd/lib/xtp/* ./lib/ && cp ./3rd/lib/irs/* ./lib/ && cp ./build/argus ./bin/ && popd
+    - xtppack
+    - uploadfiles
+  tags:
+    - xtp-build-linux-01
+
+linux-release:
+  stage: build
+  script: 
+    - prepareProjects
+    - xtpmake -DCMAKE_BUILD_TYPE=release
+    - pushd ../${CI_JOB_ID} && mkdir bin && mkdir lib && cp ./3rd/lib/xtp/* ./lib/ && cp ./3rd/lib/irs/* ./lib/ && cp ./build/argus ./bin/ && popd
+    - xtppack
+    - uploadfiles
+  tags:
+    - xtp-build-linux-02
