@@ -27,32 +27,7 @@ void buffer_maintaner::erase(void *addr)
     lock_.clear();
 }
 
-void buffer_maintaner::maintan(void *addr)          ------------·················111111111111222222222222·21233333333344444444444445555566666666666677777777788888888888899999900000000000---------1223哦iu前期围殴u哦IQ我饿UI去玩儿推哦  、、、buffer_maintaner
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         
-
-
-           
-
-
-           aaaaa======================================      
-
-           
+void buffer_maintaner::maintan(void *addr)
 {
     while (!((circle_buffer *)addr)->empty()) {
     }
